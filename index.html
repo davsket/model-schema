@@ -28,32 +28,139 @@
         </ul>
       </header>
       <section>
-        <h3>Welcome to GitHub Pages.</h3>
+        <h1>Model.js</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>An easy-lightweigth ORM inspired in the Django framework, and developed over Mootools.Core.Class basis. It let you define new Models (Class style), and provides all the ORM management facilities - In the future I'm going to develop the jQuery version -</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<p>You can get <a href="https://github.com/davsket/model-schema/downloads">the minified version from the downloads</a>, its only 2.64KB (915 bytes gzipped) or by downloading the complete code, in the <code>src</code> folder.</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h2>Requirements</h2>
 
-<h3>Designer Templates</h3>
+<p>This version requires the Class implementation by Mootools, and it uses require.js (but that's optional)</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<h2>Usage</h2>
 
-<h3>Rather Drive Stick?</h3>
+<p>First import it via require:</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s1">'Model'</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Model</span><span class="p">){</span>
+    <span class="c1">// Your Code</span>
+<span class="p">})</span>
+</pre></div>
 
-<h3>Authors and Contributors</h3>
+<p>or </p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<div class="highlight"><pre><span class="nx">Model</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'Model'</span><span class="p">)</span>
+</pre></div>
 
-<h3>Support or Contact</h3>
+<h3>Defining a Model</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Create a model is as easy as creating a Mootools Class</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Model</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nx">age</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nx">sex</span><span class="o">:</span> <span class="kc">null</span>
+    <span class="p">})</span>
+</pre></div>
+
+<h3>Creating objects</h3>
+
+<p>You have three ways to create a new object:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">david</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">'david'</span><span class="p">,</span>
+        <span class="nx">age</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+        <span class="nx">sex</span><span class="o">:</span> <span class="s1">'male'</span>
+    <span class="p">}),</span>
+    <span class="nx">carolina</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">'carolina'</span><span class="p">,</span>
+        <span class="nx">age</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
+        <span class="nx">sex</span><span class="o">:</span> <span class="s1">'female'</span>
+    <span class="p">}),</span>
+    <span class="nx">diana</span> <span class="o">=</span> <span class="nx">carolina</span><span class="p">.</span><span class="nx">__objects__</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">'diana'</span><span class="p">,</span>
+        <span class="nx">age</span><span class="o">:</span> <span class="mi">22</span><span class="p">,</span>
+        <span class="nx">sex</span><span class="o">:</span> <span class="s1">'female'</span>
+    <span class="p">})</span>
+</pre></div>
+
+<h3>Listing the objects</h3>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">all</span><span class="p">()</span> <span class="c1">// [david, carolina, diana]</span>
+<span class="nx">diana</span><span class="p">.</span><span class="nx">__objects__</span><span class="p">.</span><span class="nx">all</span><span class="p">()</span> <span class="c1">// [david, carolina, diana]</span>
+</pre></div>
+
+<h3>Filter the objects collection</h3>
+
+<p>You can filter with an object or a function</p>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">filter</span><span class="p">({</span><span class="nx">sex</span><span class="o">:</span> <span class="s1">'female'</span><span class="p">})</span> <span class="c1">// [carolina, diana]</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">age</span> <span class="o">&gt;</span> <span class="mi">23</span>
+<span class="p">})</span> <span class="c1">// [david, carolina]</span>
+</pre></div>
+
+<h3>Exclude the objects collection</h3>
+
+<p>You can exclude with an object or a function</p>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">exclude</span><span class="p">({</span><span class="nx">sex</span><span class="o">:</span> <span class="s1">'female'</span><span class="p">})</span> <span class="c1">// [david]</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">exclude</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">age</span> <span class="o">&gt;</span> <span class="mi">23</span>
+<span class="p">})</span> <span class="c1">// [diana]</span>
+</pre></div>
+
+<h3>Count collection</h3>
+
+<p>You can exclude with an object or a function</p>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">count</span><span class="p">()</span> <span class="c1">// 3</span>
+</pre></div>
+
+<h3>Sort the objects collection</h3>
+
+<p>You can sort the collection by attribute or function</p>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">age</span> <span class="o">-</span> <span class="nx">b</span><span class="p">.</span><span class="nx">age</span>
+<span class="p">})</span> <span class="c1">// [diana, carolina, david]</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span> <span class="c1">// [david, diana, carolina]</span>
+</pre></div>
+
+<h3>Get an element by attribute(s)</h3>
+
+<p>You can get an element by: id, attribute/value, or attributes</p>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">david</span><span class="p">.</span><span class="nx">__id__</span><span class="p">)</span> <span class="c1">// david</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="nx">carolina</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="c1">// carolina</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">get</span><span class="p">({</span><span class="nx">age</span><span class="o">:</span> <span class="mi">22</span><span class="p">})</span> <span class="c1">// diana</span>
+</pre></div>
+
+<h3>Delete an element</h3>
+
+<p>You can delete an element by: id or passing the object</p>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">david</span><span class="p">.</span><span class="nx">__id__</span><span class="p">)</span> <span class="c1">// returns david</span>
+<span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">all</span> <span class="c1">// [carolina, diana]</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">diana</span><span class="p">)</span> <span class="c1">// returns diana</span>
+<span class="nx">Person</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">all</span> <span class="c1">// [carolina]</span>
+</pre></div>
+
+<h2>License</h2>
+
+<p>MIT Licensed</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/davsket">davsket</a></p>
