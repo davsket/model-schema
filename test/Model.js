@@ -1,8 +1,8 @@
 require.config({
 	baseUrl: "../src"
 });
-require(['Model'], function(Model){
-	describe("Model", function() {
+require(['model-schema'], function(Model){
+	describe("model-schema", function() {
 		var Person, david, carolina
 
 		beforeEach(function() {
