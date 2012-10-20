@@ -1,4 +1,4 @@
-# Model.js
+# Model-Schema
 
 An easy-lightweigth ORM inspired in the Django framework, and developed over Mootools.Core.Class basis. It let you define new Models (Class style), and provides all the ORM management facilities - In the future I'm going to develop the jQuery version -
 
