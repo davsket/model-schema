@@ -124,7 +124,6 @@ header ul {
 header li {
   width:33.3%;
   float:left;
-  border-right:1px solid #d2d2d2;
 }
 
 header ul a {
@@ -134,6 +133,7 @@ header ul a {
   display:block;
   text-align:center;
   padding:8px 0;
+  border-right:1px solid #d2d2d2;
 }
 
 strong {
