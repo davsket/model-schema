@@ -1,11 +1,11 @@
 /*!
- * Model.js 0.1 r1
+ * Model.js 0.1 r2
  * http://davsket.me/model-schema
  * MIT licensed
  * 
  * Copyright (C) 2012-2013 David Avellaneda, http://davsket.me
  */
-define('./model-schema', function(){
+define('./model-schema-2', function(){
 	var Model
 
 	/**
@@ -16,15 +16,20 @@ define('./model-schema', function(){
 	Model = function(classObject){
 		var _collection = [], ClassModel, key, 
 			old_initialize, consecutive = 0,
-			idMap = {}
+			idMap = {}, thisObjects
+
+		function Scope(new_collection){
+			var _collection = new_collection
+			this.objects = thisObjects
+		}
 		
-		this.objects = {
+		this.objects = thisObjects = {
 			/**
 			* Returns the collection array with all the objects
 			* @return {Array} the colection
 			*/
 			all: function(){
-				return _collection.slice()
+				return new Scope(_collection.slice())
 			},
 
 			/**
@@ -66,13 +71,13 @@ define('./model-schema', function(){
 			*/
 			filter: function(filters){
 				if(typeOf(filters) == 'function')
-					return _collection.filter(filters)
-				return _collection.filter(function(item){
+					return new Scope(_collection.filter(filters))
+				return new Scope(_collection.filter(function(item){
 					for(var key in filters) 
 						if(item[key] !== filters[key]) 
 							return false
 					return true
-				})
+				}))
 			},
 
 			/**
@@ -84,15 +89,15 @@ define('./model-schema', function(){
 			*/
 			exclude: function(filters){
 				if(typeOf(filters) == 'function')
-					return _collection.filter(function(item){
+					return new Scope(_collection.filter(function(item){
 						return !filters(item)
-					})
-				return _collection.filter(function(item){
+					}))
+				return new Scope(_collection.filter(function(item){
 					for(var key in filters) 
 						if(item[key] === filters[key]) 
 							return false
 					return true
-				})
+				}))
 			},
 
 			/**
@@ -110,14 +115,14 @@ define('./model-schema', function(){
 			*/
 			sort: function(funcOrAttr){
 				if(typeOf(funcOrAttr) == 'function'){
-					return _collection.slice().sort(funcOrAttr)
+					return new Scope(_collection.slice().sort(funcOrAttr))
 				}
-				return _collection.slice().sort(function(a, b){
+				return new Scope(_collection.slice().sort(function(a, b){
 					if(typeof a[funcOrAttr] == 'number')
 						return a[funcOrAttr] - b[funcOrAttr]
 					else
 						return a[funcOrAttr] > b[funcOrAttr] ? 1 : a[funcOrAttr] < b[funcOrAttr] ? -1 : 0
-				})
+				}))
 			},
 
 			/**
@@ -178,6 +183,10 @@ define('./model-schema', function(){
 			*/
 			'delete': function(object){
 				var obj, index
+
+				if(typeof object == 'undefined')
+					console.error('Expected element or id')
+					return false
 				
 				//By id
 				if(typeof object == 'number'){

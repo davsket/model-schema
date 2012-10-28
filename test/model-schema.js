@@ -2,6 +2,7 @@ require.config({
 	baseUrl: "../src"
 });
 require(['model-schema'], function(Model){
+	console.log(Model)
 	describe("model-schema", function() {
 		var Person, david, carolina
 
