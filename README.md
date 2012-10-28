@@ -1,12 +1,12 @@
-# Model.js
+# Model-Schema
 
-An easy ORM inspired in the Django framework, and developed over Mootools.Core.Class basis.
+An easy-lightweigth ORM inspired in the Django framework, and developed over Mootools.Core.Class basis. It let you define new Models (Class style), and provides all the ORM management facilities - In the future I'm going to develop the jQuery version -
 
-It let you define new Models (Class style), and provides all the ORM management facilities.
+You can get [the minified version from the downloads](https://github.com/davsket/model-schema/downloads), its only 2.64KB (915 bytes gzipped) or by downloading the complete code, in the `src` folder.
 
 ## Requirements
 
-This version requires the Class implementation by Mootools, and uses require.js (but it's optional)
+This version requires the Class implementation by Mootools, and it uses require.js (but that's optional)
 
 ## Usage
 
@@ -18,7 +18,7 @@ require(['Model'], function(Model){
 })
 ```
 
-or
+or 
 
 ```javascript
 Model = require('Model')
